@@ -21,7 +21,7 @@ export class ProductService {
 
     items = items.filter(item => item.amount >= 1);
     this.setStorage(items);
-    return items;
+    return [...items];
   }
 
   getCheckout(): Observable<CheckoutItem[]> {
@@ -41,7 +41,7 @@ export class ProductService {
       items.push({ product, amount: 1 });
     }
     this.setStorage(items);
-    return items;
+    return [...items];
   }
 
   private setStorage(items: CheckoutItem[]): void {
