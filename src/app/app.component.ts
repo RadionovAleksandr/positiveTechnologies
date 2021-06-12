@@ -6,7 +6,6 @@ import { StoreService } from './components/services/store.service';
 import { ProductService } from './components/services/product.service';
 import { CheckoutItem } from './components/interfaces/checkout.interface';
 import { Product } from './components/interfaces/product.interface';
-import { Quotable } from './components/interfaces/qutable.interface';
 
 
 @Component({
@@ -48,9 +47,5 @@ export class AppComponent implements OnInit {
   removeProduct(id: string): void {
     this.checkoutProducts = this.productService.removeProduct(id, this.checkoutProducts);
   }
-
-  //USDCAD: 1.212025
-  //USDEUR: 0.821796
-  //USDRUB: 72.3505
 }
 
