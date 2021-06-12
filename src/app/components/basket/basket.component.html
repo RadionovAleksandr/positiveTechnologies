@@ -1,0 +1,27 @@
+<div class="basket">
+  <div class="basket__text">Корзина</div>
+  <div *ngIf="checkoutItems.length">
+    <div class="basket__list">
+      <div class="basket__item" *ngFor="let item of checkoutItems">
+        <span
+          class="basket__remove-btn"
+          (click)="remove(item.product.id)">+
+        </span>
+        <span class="basket__item-text">{{item.product.name}}: </span>
+        <span class="basket__item-price">{{item.product.price}}$</span>
+        <span class="basket__item-count" *ngIf="item.amount !== 1">x{{item.amount}}</span>
+      </div>
+    </div>
+    <div class="basket__summ">
+      <div class="basket__summ-text">Всего: {{sum[currency.usd]?.amount}} {{currency.usd}}</div>
+      <div class="basket__summ-wrap">
+        <div
+          class="basket__summ-number"
+          *ngFor="let key of currencyKeys">
+          {{sum[key].amount}} {{sum[key].currency}}
+        </div>
+        <!--    <span class="basket__summ-currency">руб.</span>-->
+      </div>
+    </div>
+  </div>
+</div>

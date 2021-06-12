@@ -1,0 +1,39 @@
+.page-main {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+}
+
+.goods_info {
+  margin-top: 45px;
+  color: #F4FEFA;
+  line-height: 80px;
+  font-size: 60px;
+}
+
+.goods_info--black {
+  color: #142328;
+}
+
+.goods-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.goods__item {
+  flex-grow: 1;
+  margin-top: 30px;
+}
+
+.basket {
+  position: sticky;
+  top: 75px;
+  background-color: #F4FEFA;
+  border-radius: 5px;
+  box-shadow: 0 0 10px black;
+  border: 2px solid #d4d4d4;
+  padding: 15px;
+  margin-top: 45px;
+}

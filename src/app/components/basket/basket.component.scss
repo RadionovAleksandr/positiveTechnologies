@@ -1,0 +1,49 @@
+.basket {
+  width: 300px;
+
+  &__list {
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 30px;
+  }
+
+  &__text {
+    margin: 0 16px;
+    font-size: 32px;
+  }
+
+  &__item {
+    display: flex;
+    margin: 5px 0;
+  }
+
+  &__item-count,
+  &__item-price{
+    margin-left: 28px;
+  }
+
+  &__summ {
+    margin-top: 22px;
+    padding-top: 10px;
+    border-top: 1px solid #d4d4d4;
+  }
+
+  &__summ-text {
+    margin-left: auto;
+  }
+
+  &__summ-currency,
+  &__summ-number {
+    margin-left: 7px;
+    display: block;
+  }
+
+  &__remove-btn {
+    cursor: pointer;
+    display: block;
+    transform: rotate(45deg);
+    color: #AB0000;
+    margin-right: 10px;
+  }
+}
+

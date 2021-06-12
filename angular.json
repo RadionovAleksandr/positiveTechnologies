@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "PositveTechnologies"
+    }
+  },
+  "defaultProject": "PositveTechnologies",
+  "cli": {
+    "analytics": "22679c95-8f0a-4884-9d6d-9ca5406ec9a4"
+  }
 }
