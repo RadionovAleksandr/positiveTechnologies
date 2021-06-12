@@ -1,11 +1,19 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+} from '@angular/core';
 import { CheckoutItem } from '../interfaces/checkout.interface';
 import { Currency } from '../../currency.enum';
 
 @Component({
   selector: 'app-basket',
   templateUrl: './basket.component.html',
-  styleUrls: ['./basket.component.scss']
+  styleUrls: ['./basket.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
 export class BasketComponent implements OnChanges {
@@ -16,9 +24,6 @@ export class BasketComponent implements OnChanges {
   currencyKeys: string[];
   sum: Record<string, Record<string, any>> = {};
   currency = Currency;
-
-  constructor() {
-  }
 
   ngOnChanges(): void {
     if (this.currenciesRatio && this.checkoutItems) {
