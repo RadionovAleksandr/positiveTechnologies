@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, TrackByFunction } from '@angular/core';
 import { PriceService } from './services/price.service';
 import { FormGroup } from '@angular/forms';
 import { Currency } from './enums/currency.enum';
@@ -21,8 +21,7 @@ export class AppComponent implements OnInit, OnDestroy {
   form: FormGroup;
   checkoutProducts: CheckoutItem[] = [];
   currenciesRatio: Record<string, number>;
-  destroy$ = new Subject();
-
+  private destroy$ = new Subject();
   constructor(
     public readonly storeService: StoreService,
     private readonly priceService: PriceService,
@@ -59,5 +58,7 @@ export class AppComponent implements OnInit, OnDestroy {
   removeProduct(id: string): void {
     this.checkoutProducts = this.productService.removeProduct(id, this.checkoutProducts);
   }
+
+  trackByFn: TrackByFunction<Product> = (index, item) => item.id;
 }
 

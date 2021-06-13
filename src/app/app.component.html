@@ -7,7 +7,7 @@
 
     <div class="goods-wrap">
       <app-card class="goods__item"
-        *ngFor="let item of storeService.items"
+        *ngFor="let item of storeService.items trackBy: trackByFn"
         [product]="item"
         (addEvent)="addProduct($event)">
       </app-card>
