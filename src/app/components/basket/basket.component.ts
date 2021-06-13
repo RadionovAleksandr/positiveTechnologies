@@ -6,8 +6,8 @@ import {
   OnChanges,
   Output,
 } from '@angular/core';
-import { CheckoutItem } from '../interfaces/checkout.interface';
-import { Currency } from '../../currency.enum';
+import { CheckoutItem } from '../../interfaces/checkout.interface';
+import { Currency } from '../../enums/currency.enum';
 
 @Component({
   selector: 'app-basket',

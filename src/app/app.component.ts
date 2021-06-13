@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { PriceService } from './components/services/price.service';
+import { PriceService } from './services/price.service';
 import { FormGroup } from '@angular/forms';
-import { Currency } from './currency.enum';
-import { StoreService } from './components/services/store.service';
-import { ProductService } from './components/services/product.service';
-import { CheckoutItem } from './components/interfaces/checkout.interface';
-import { Product } from './components/interfaces/product.interface';
+import { Currency } from './enums/currency.enum';
+import { StoreService } from './services/store.service';
+import { ProductService } from './services/product.service';
+import { CheckoutItem } from './interfaces/checkout.interface';
+import { Product } from './interfaces/product.interface';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -31,10 +31,11 @@ export class AppComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.productService.getCheckout().subscribe((items) => this.checkoutProducts = items);
+    this.productService.getCheckout()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe((items) => this.checkoutProducts = items);
 
     this.priceService.getCurrency(Currency.usd, this.storeService.currencies)
-    .pipe(takeUntil(this.destroy$))
     // .subscribe(quota => this.currenciesRatio = quota);
     setTimeout(() => {
       this.currenciesRatio = {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Currency } from '../../currency.enum';
+import { Currency } from '../enums/currency.enum';
 import { Product } from '../interfaces/product.interface';
 
 @Injectable({

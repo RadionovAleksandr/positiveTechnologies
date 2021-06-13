@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Currency } from '../../currency.enum';
+import { Currency } from '../enums/currency.enum';
 import { Quotable } from '../interfaces/qutable.interface';
 
 @Injectable({
