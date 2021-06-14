@@ -3,12 +3,12 @@ import { PriceService } from './services/price.service';
 import { FormGroup } from '@angular/forms';
 import { Currency } from './enums/currency.enum';
 import { StoreService } from './services/store.service';
-import { ProductService } from './services/product.service';
 import { CheckoutItem } from './interfaces/checkout.interface';
 import { Product } from './interfaces/product.interface';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-
+import { CheckoutService } from './services/checkout.service';
+import { Quotable } from './interfaces/qutable.interface';
 
 @Component({
   selector: 'app-root',
@@ -20,28 +20,27 @@ export class AppComponent implements OnInit, OnDestroy {
   title = 'Positive Technologies';
   form: FormGroup;
   checkoutProducts: CheckoutItem[] = [];
-  currenciesRatio: Record<string, number>;
+  currenciesRatio: Quotable;
   private destroy$ = new Subject();
   constructor(
     public readonly storeService: StoreService,
     private readonly priceService: PriceService,
-    private readonly productService: ProductService,
+    private readonly checkoutService: CheckoutService,
     private cd: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
-    this.productService.getCheckout()
+
+    this.checkoutService.checkout$
     .pipe(takeUntil(this.destroy$))
-    .subscribe((items) => this.checkoutProducts = items);
+    .subscribe((items) => this.checkoutProducts = [...items]);
+
+    this.checkoutService.getCheckout();
 
     this.priceService.getCurrency(Currency.usd, this.storeService.currencies)
-    // .subscribe(quota => this.currenciesRatio = quota);
-    setTimeout(() => {
-      this.currenciesRatio = {
-        USDCAD: 1.212025,
-        USDEUR: 0.821796,
-        USDRUB: 72.3505,
-      };
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(quota => {
+      this.currenciesRatio = quota;
       this.cd.detectChanges();
     });
   }
@@ -52,11 +51,11 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   addProduct(item: Product): void {
-    this.checkoutProducts = this.productService.addProduct(item, this.checkoutProducts);
+    this.checkoutService.addProduct(item);
   }
 
   removeProduct(id: string): void {
-    this.checkoutProducts = this.productService.removeProduct(id, this.checkoutProducts);
+    this.checkoutService.removeProduct(id);
   }
 
   trackByFn: TrackByFunction<Product> = (index, item) => item.id;

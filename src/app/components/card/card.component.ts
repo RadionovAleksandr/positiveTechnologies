@@ -11,7 +11,7 @@ export class CardComponent {
   @Input() product: Product;
   @Output() addEvent = new EventEmitter<Product>();
 
-  addBasket(item: Product): void {
+  addIntoBasket(item: Product): void {
     this.addEvent.emit(item);
   }
 }
