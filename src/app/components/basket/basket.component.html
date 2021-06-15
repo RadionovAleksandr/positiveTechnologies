@@ -1,15 +1,16 @@
 <div class="basket">
   <div class="basket__title">Корзина</div>
-  <div *ngIf="checkoutItems.length">
+  <div *ngIf="checkoutItems.size">
     <div class="basket__list">
-      <div class="basket__item" *ngFor="let item of checkoutItems">
+      <div class="basket__item" *ngFor="let item of checkoutItems | keyvalue">
+        <div>!!!!{{console(item?.value)}}</div>
         <span
           class="basket__remove-btn"
-          (click)="remove(item.product.id)">+
+          (click)="remove(item?.value?.product.id)">+
         </span>
-        <span class="basket__item-text">{{item.product.name}}: </span>
-        <span class="basket__item-price">{{item.product.price}}$</span>
-        <span class="basket__item-count" *ngIf="item.amount !== 1">x{{item.amount}}</span>
+        <span class="basket__item-text">{{item?.value?.product.name}}: </span>
+        <span class="basket__item-price">{{item?.value?.product.price}}$</span>
+        <span class="basket__item-count" *ngIf="item?.value?.amount !== 1">x{{item?.value?.amount}}</span>
       </div>
     </div>
     <div class="basket__sum">

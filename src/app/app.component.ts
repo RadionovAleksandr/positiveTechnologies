@@ -19,8 +19,8 @@ import { Quotable } from './interfaces/qutable.interface';
 export class AppComponent implements OnInit, OnDestroy {
   title = 'Positive Technologies';
   form: FormGroup;
-  checkoutProducts: CheckoutItem[] = [];
-  currenciesRatio: Quotable;
+  checkoutProducts: Map<string, CheckoutItem>;
+  currenciesRatio;
   private destroy$ = new Subject();
   constructor(
     public readonly storeService: StoreService,
@@ -33,14 +33,26 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.checkoutService.checkout$
     .pipe(takeUntil(this.destroy$))
-    .subscribe((items) => this.checkoutProducts = [...items]);
+    .subscribe((items) => {
+      this.checkoutProducts = items
+      this.cd.detectChanges();
+    });
 
     this.checkoutService.getCheckout();
 
     this.priceService.getCurrency(Currency.usd, this.storeService.currencies)
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(quota => {
-      this.currenciesRatio = quota;
+    .pipe(takeUntil(this.destroy$));
+    // .subscribe(quota => {
+    //   this.currenciesRatio = quota;
+    //   this.cd.detectChanges();
+    // });
+
+    setTimeout(() => {
+      this.currenciesRatio = {
+        USDCAD: 1.212025,
+        USDEUR: 0.821796,
+        USDRUB: 72.3505,
+      };
       this.cd.detectChanges();
     });
   }

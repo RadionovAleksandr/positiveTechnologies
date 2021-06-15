@@ -1,5 +1,5 @@
 import {
-  ChangeDetectionStrategy,
+  ChangeDetectionStrategy, ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
@@ -17,8 +17,10 @@ import { Currency } from '../../enums/currency.enum';
 })
 
 export class BasketComponent implements OnChanges {
+  constructor(private cd: ChangeDetectorRef) {
+  }
 
-  @Input() checkoutItems: CheckoutItem[];
+  @Input() checkoutItems: Map<any, any>;
   @Input() currenciesRatio: Record<string, any>;
   @Output() removeEvent = new EventEmitter<string>();
   currencyKeys: string[];
@@ -48,5 +50,4 @@ export class BasketComponent implements OnChanges {
   remove(id: string): void {
     this.removeEvent.emit(id);
   }
-
 }
