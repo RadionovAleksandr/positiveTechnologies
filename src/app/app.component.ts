@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, TrackByFunction } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, TrackByFunction } from '@angular/core';
 import { PriceService } from './services/price.service';
 import { FormGroup } from '@angular/forms';
-import { Currency } from './enums/currency.enum';
+import { CurrencyEnum } from './enums/currency.enum';
 import { StoreService } from './services/store.service';
 import { CheckoutItem } from './interfaces/checkout.interface';
 import { Product } from './interfaces/product.interface';
@@ -23,10 +23,9 @@ export class AppComponent implements OnInit, OnDestroy {
   currenciesRatio: Quotable;
   private destroy$ = new Subject();
   constructor(
-    public readonly storeService: StoreService,
-    private readonly priceService: PriceService,
+    readonly storeService: StoreService,
     private readonly checkoutService: CheckoutService,
-    private cd: ChangeDetectorRef,
+    private readonly priceService: PriceService,
   ) {}
 
   ngOnInit(): void {
@@ -37,11 +36,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.checkoutService.getCheckout();
 
-    this.priceService.getCurrency(Currency.usd, this.storeService.currencies)
+    this.priceService.getCurrency(CurrencyEnum.usd, this.storeService.currencies)
     .pipe(takeUntil(this.destroy$))
     .subscribe(quota => {
       this.currenciesRatio = quota;
-      this.cd.detectChanges();
     });
   }
 

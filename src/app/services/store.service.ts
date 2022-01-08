@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Currency } from '../enums/currency.enum';
+import { CurrencyEnum } from '../enums/currency.enum';
 import { Product } from '../interfaces/product.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StoreService {
-  currencies = [Currency.eur, Currency.cad, Currency.rub];
+  defaultCur = CurrencyEnum.usd;
+  currencies = [CurrencyEnum.usd, CurrencyEnum.eur, CurrencyEnum.cad, CurrencyEnum.rub];
   items: Product[] = [
     {
       id: '1',
@@ -35,9 +36,9 @@ export class StoreService {
     },
     ];
   elements = [
-    { name: 'Доллар', currency: Currency.usd },
-    { name: 'Евро', currency: Currency.eur },
-    { name: 'Канадский доллар', currency: Currency.cad},
-    { name: 'Рубль', currency: Currency.rub}
+    { name: 'Доллар', currency: CurrencyEnum.usd },
+    { name: 'Евро', currency: CurrencyEnum.eur },
+    { name: 'Канадский доллар', currency: CurrencyEnum.cad},
+    { name: 'Рубль', currency: CurrencyEnum.rub}
   ];
 }

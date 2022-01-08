@@ -1,6 +1,13 @@
 <div class="basket">
   <div class="basket__title">Корзина</div>
-  <div *ngIf="checkoutItems.length">
+  <div class="basket__currency">Валюта
+    <select (ngModelChange)="changeCurrency($event)" [(ngModel)]="currentCur">
+      <option *ngFor="let currency of currentCurrencies">
+        {{currency}}
+      </option>
+    </select>
+  </div>
+  <div *ngIf="checkoutItems?.length">
     <div class="basket__list">
       <div class="basket__item" *ngFor="let item of checkoutItems">
         <span
@@ -8,19 +15,12 @@
           (click)="remove(item.product.id)">+
         </span>
         <span class="basket__item-text">{{item.product.name}}: </span>
-        <span class="basket__item-price">{{item.product.price}}$</span>
+        <span class="basket__item-price">{{item.product.price}}</span>
         <span class="basket__item-count" *ngIf="item.amount !== 1">x{{item.amount}}</span>
       </div>
     </div>
     <div class="basket__sum">
-      <div class="basket__sum-text">Всего: {{sum[currency.usd]?.amount}} {{currency.usd}}</div>
-      <div class="basket__sum-wrap">
-        <div
-          class="basket__sum-currency"
-          *ngFor="let key of currencyKeys">
-          {{sum[key].amount}} {{sum[key].currency}}
-        </div>
-      </div>
+      <div class="basket__sum-text">Всего: {{sum}} {{currentCur}}</div>
     </div>
   </div>
 </div>
